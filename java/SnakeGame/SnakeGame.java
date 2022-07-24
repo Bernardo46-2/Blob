@@ -121,15 +121,14 @@ class Game{
         this.map[19] = "|                                                   |";
         this.map[20] = "|___________________________________________________|";
 
-        
-        for(int i = 0; i < snake.length; i++){
-            if(snake.node[snake.length - 1].x == dot.x && snake.node[snake.length - 1].y == dot.y){
-                this.points++;
+        if(snake.node[snake.length - 1].x == dot.x && snake.node[snake.length - 1].y == dot.y){
+            this.points++;
 
-                snake.append();
-                updateDot();
-            }
-            
+            snake.append();
+            updateDot();
+        }
+        
+        for(int i = 0; i < snake.length; i++){            
             if(map[snake.node[i].y].charAt(snake.node[i].x) == ' ')
                 map[snake.node[i].y] = map[snake.node[i].y].substring(0, snake.node[i].x) + snake.node[i].icon + map[snake.node[i].y].substring(snake.node[i].x + 1, map[snake.node[i].y].length());
 
