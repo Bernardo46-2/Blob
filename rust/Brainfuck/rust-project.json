@@ -1,5 +1,5 @@
 {
-    "sysroot_src": "path/to/rust/library",
+    "sysroot_src": "C:/Users/berna/.rustup/toolchains/stable-x86_64-pc-windows-gnu/lib/rustlib/src/rust/library",
     "crates": [
         {
             "root_module": "brainfuck_interpreter.rs",
