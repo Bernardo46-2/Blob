@@ -51,7 +51,7 @@ null' Empty = True
 null' _ = False
 
 contains :: Ord a => a -> BinaryTree a -> Bool
-contains x t = isJust $ find x t
+contains x = isJust . find x
 
 find :: Ord a => a -> BinaryTree a -> Maybe a
 find _ Empty = Nothing
