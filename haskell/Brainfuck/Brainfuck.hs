@@ -73,7 +73,7 @@ movPtr Inc m = Mem { ptr = loopAround _MEM_LEN (ptr m + 1), mem = mem m }
 movPtr Dec m = Mem { ptr = loopAround _MEM_LEN (ptr m - 1), mem = mem m }
 
 printPtr :: Mem -> IO ()
-printPtr m = putStr [chr $ fromEnum $ getPtr m]
+printPtr m = putStr [chr . fromEnum $ getPtr m]
 
 readToPtr :: Mem -> IO Mem
 readToPtr m = do
