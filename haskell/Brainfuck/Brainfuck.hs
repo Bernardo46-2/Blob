@@ -22,7 +22,7 @@ data Change = Dec | Inc deriving Eq
 -- Constants
 ----------------------------------------------------------------------------------------------------------------
 
-memLen = 30000
+_MEM_LEN = 30000
 
 ----------------------------------------------------------------------------------------------------------------
 -- Utils
@@ -33,9 +33,8 @@ cls = do
     system "clear"
     return ()
 
-input :: Read a => String -> IO a
-input s = do
-    putStr s
+input :: Read a => IO a
+input = do
     x <- readLn
     flush stdin
     return x
@@ -58,7 +57,7 @@ replace i x xs = take i xs ++ [x] ++ drop (i+1) xs
 ----------------------------------------------------------------------------------------------------------------
 
 initMem :: Mem
-initMem = Mem { ptr = 0, mem = replicate memLen 0 }
+initMem = Mem { ptr = 0, mem = replicate _MEM_LEN 0 }
 
 getPtr :: Mem -> Word8
 getPtr m = mem m !! ptr m
@@ -70,20 +69,21 @@ editValue c m =
     in  Mem { ptr = ptr m, mem = xs }
 
 movPtr :: Change -> Mem -> Mem
-movPtr Inc m = Mem { ptr = loopAround memLen (ptr m + 1), mem = mem m }
-movPtr Dec m = Mem { ptr = loopAround memLen (ptr m - 1), mem = mem m }
+movPtr Inc m = Mem { ptr = loopAround _MEM_LEN (ptr m + 1), mem = mem m }
+movPtr Dec m = Mem { ptr = loopAround _MEM_LEN (ptr m - 1), mem = mem m }
 
 printPtr :: Mem -> IO ()
 printPtr m = putStr [chr $ fromEnum $ getPtr m]
 
 readToPtr :: Mem -> IO Mem
 readToPtr m = do
-    x <- input ""
+    x <- input
     let xs = replace (ptr m) x (mem m)
     return Mem { ptr = ptr m, mem = xs }
 
 findLoopEnd :: String -> Int
-findLoopEnd = go 1 0
+findLoopEnd (']':_) = 0
+findLoopEnd s = go 1 0 s
     where
         go i c [] = error "Invalid Input: missing `]`"
         go i c (x:xs)
@@ -102,8 +102,10 @@ handleLoop m s
 runLoop :: Mem -> String -> IO (Mem, String)
 runLoop m s = do
     let (loop, s') = splitLoop s
-    m' <- handleLoop m loop
-    return (m', s')
+    if not (null loop) then
+        handleLoop m loop >>= \ m' -> return (m', s')
+    else
+        return (m, tail s)
 
 runCode :: Mem -> String -> IO Mem
 runCode m [] = return m
