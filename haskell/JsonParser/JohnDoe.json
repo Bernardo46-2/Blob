@@ -1,0 +1,12 @@
+{
+    "name": "John Doe",
+    "age": 30,
+    "isStudent": false,
+    "job": null,
+    "hobbies": ["reading", "coding", "playing guitar"],
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "country": "USA"
+    }
+}
