@@ -104,29 +104,14 @@ tail' :: Parser -> String
 tail' = tail . str
 
 moveColumn :: Parser -> Parser
-moveColumn p
-    | null' p = p
-    | otherwise = 
-        Parser { 
-            str = tail' p,
-            line = line p,
-            col = col p + 1,
-            json = json p
-        }
+moveColumn p = Parser { str = tail' p,line = line p,col = col p + 1,json = json p }
 
 moveLine :: Parser -> Parser
-moveLine p
-    | null' p = p
-    | otherwise =
-        Parser {
-            str = tail' p,
-            line = line p + 1,
-            col = 1,
-            json = json p
-        }
+moveLine p = Parser { str = tail' p, line = line p + 1, col = 1, json = json p }
 
 move :: Parser -> Parser
 move p
+    | null' p = p
     | head' p == '\n' = moveLine p
     | otherwise = moveColumn p
 
