@@ -234,4 +234,4 @@ parseJson = fst . parseObject . initParser
 ------------------------------------------------------------------------------------------------
 
 main :: IO ()
-main = getContents >>= (mapM_  print . parseJson)
+main = getContents >>= mapM_  print . parseJson
