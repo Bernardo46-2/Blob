@@ -15,7 +15,6 @@ import Data.Char (isDigit, isAlpha)
 ------------------------------------------------------------------------------------------------
 
 data Parser = Parser {
-    file :: String,
     str :: String,
     line :: Int,
     col :: Int,
@@ -109,7 +108,6 @@ moveColumn p
     | null' p = p
     | otherwise = 
         Parser { 
-            file = file p,
             str = tail' p,
             line = line p,
             col = col p + 1,
@@ -121,7 +119,6 @@ moveLine p
     | null' p = p
     | otherwise =
         Parser {
-            file = file p,
             str = tail' p,
             line = line p + 1,
             col = 1,
@@ -138,7 +135,7 @@ move p
 ------------------------------------------------------------------------------------------------
 
 initParser :: String -> Parser
-initParser s = Parser { file = "", str = s, col = 1, line = 1, json = [] }
+initParser s = Parser { str = s, col = 1, line = 1, json = [] }
 
 expectToken :: String -> Parser -> Parser 
 expectToken t = go t t . trimLeft
