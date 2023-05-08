@@ -59,7 +59,7 @@ missingTokenError tk p =
 expectError :: String -> Parser -> a
 expectError tk p = 
     error $ "<Json>: "++ show (line p) ++ ":" ++ show (col p)
-            ++ ":\nInvalid input: Expected token `" ++ 
+            ++ ": Invalid input: Expected token `" ++ 
             tk ++ "` but got `" ++ [head' p] ++ "` instead"
 
 unexpectedTokenError :: String -> Parser -> a
