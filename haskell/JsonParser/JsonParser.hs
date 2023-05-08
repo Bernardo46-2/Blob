@@ -95,7 +95,7 @@ readWhile f p = (reverse s, p')
             | otherwise = (acc, p)
 
 null' :: Parser -> Bool
-null' p = null (str p)
+null' = null . str
 
 head' :: Parser -> Char
 head' = head . str
