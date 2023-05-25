@@ -103,7 +103,7 @@ instance Applicative Stack where
         where
             go (Node f Empty) (Node x Empty) _ = Node (f x) Empty
             go (Node f fs) (Node x Empty) xs' = Node (f x) (go fs xs' xs')
-            go (Node f fs) (Node x xs) xs' = Node (f x) (go (Node f fs) xs xs')
+            go gs@(Node f fs) (Node x xs) xs' = Node (f x) (go gs xs xs')
 
 main :: IO()
 main = do
